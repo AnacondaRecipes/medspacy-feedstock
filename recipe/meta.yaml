@@ -1,0 +1,49 @@
+{% set name = "medspacy" %}
+{% set version = "1.1.2" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/medspacy-{{ version }}.tar.gz
+  sha256: 30ead2dd36cc53db544e7ef447c2ac8ca6cf836d49ae57c75e133a8429884fe4
+
+build:
+  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+
+requirements:
+  host:
+    - python >=3.8
+    - setuptools >=61.0.0
+    - setuptools-scm >=6.2
+    - wheel
+    - pip
+    - setuptools
+    - wheel
+  run:
+    - python >=3.8
+    - spacy >=3.4.1,<4.0
+    - pyrush >=1.0.8
+    - pysbd ==0.3.4
+    - jsonschema
+    - medspacy_quickumls ==3.0
+
+test:
+  imports:
+    - medspacy
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: Library for clinical NLP with spaCy.
+  home: https://github.com/medspacy/medspacy
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - skupr-anaconda
